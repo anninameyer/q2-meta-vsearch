@@ -25,7 +25,7 @@ from q2_meta_vsearch._align import align_closed_reference
 from q2_meta_vsearch._assign import assign_closed_reference
 from q2_types.feature_data import (
     FeatureData, Sequence, BLAST6, SequenceCharacteristics, Taxonomy)
-from q2_types.feature_table import FeatureTable, Frequency
+from q2_types.feature_table import FeatureTable, Frequency, RelativeFrequency
 from q2_types.sample_data import SampleData
 from q2_types.per_sample_sequences import (
     Sequences, SequencesWithQuality, PairedEndSequencesWithQuality,
@@ -107,7 +107,8 @@ plugin.methods.register_function(
 plugin.methods.register_function(
     function=assign_closed_reference,
     inputs={'alignments': FeatureData[ReferenceAlignments],
-            'reference_taxonomy': FeatureData[Taxonomy]},
+            'reference_taxonomy': FeatureData[Taxonomy],
+            'class_weights': FeatureTable[RelativeFrequency]},
     parameters={
         'identity_threshold': qiime2.plugin.Float % qiime2.plugin.Range(
             0, 1, inclusive_start=False, inclusive_end=True),
@@ -116,13 +117,23 @@ plugin.methods.register_function(
         'unresolved_policy': qiime2.plugin.Str % qiime2.plugin.Choices(
             ['deterministic-reference', 'exclude']),
         'max_explicit_species': qiime2.plugin.Int % qiime2.plugin.Range(
-            1, None)},
+            1, None),
+        'min_weight_difference': qiime2.plugin.Float % qiime2.plugin.Range(
+            0, None),
+        'min_weight_ratio': qiime2.plugin.Float % qiime2.plugin.Range(1, None),
+        'missing_weight_policy': qiime2.plugin.Str % qiime2.plugin.Choices(
+            ['unresolved', 'error'])},
     outputs=[('assignment_metadata', FeatureData[SequenceCharacteristics]),
              ('taxonomy', FeatureData[Taxonomy])],
     input_descriptions={
         'alignments': 'Validated reusable alignment evidence, not BLAST6.',
         'reference_taxonomy': 'Reference-ID taxonomy. Missing best-hit '
-                              'annotations are explicitly reported.'},
+                              'annotations are explicitly reported.',
+        'class_weights': 'Optional single-vector taxon weights, e.g. Clawback '
+                         'RelativeFrequency output. Feature IDs must match '
+                         'complete reference taxonomy lineages after '
+                         'whitespace normalization. No Clawback dependency '
+                         'is required.'},
     parameter_descriptions={
         'identity_threshold': 'Minimum identity fraction (0–1), at least the '
                               'stored alignment floor. Default 0.90.',
@@ -137,20 +148,33 @@ plugin.methods.register_function(
                              'blank for disagreeing or missing taxonomy.',
         'max_explicit_species': 'List up to this many distinct species within '
                                 'one genus; otherwise use a human-readable '
-                                'ssg. label. Hierarchical taxonomy is LCA.'},
+                                'ssg. label. Hierarchical taxonomy is LCA.',
+        'min_weight_difference': 'Require top minus runner-up weight >= this '
+                                 'value, using original weights (default 0).',
+        'min_weight_ratio': 'Require top >= runner-up times this ratio '
+                            '(default 1), AND the difference criterion. '
+                            'The top must be unique. Positive/zero passes '
+                            'every finite ratio; zero/zero is a tie.',
+        'missing_weight_policy': 'If any exact-best taxon lacks weights or '
+                                 'taxonomy, retain all candidates (unresolved,'
+                                 'default), or raise an informative error.'},
     output_descriptions={
         'assignment_metadata': 'One metadata-compatible row per original ASV. '
                                'Statistics use statistics_reference (the '
                                'lexicographically first exact-best reference; '
                                'plus strand first), even under exclusion.',
-        'taxonomy': 'ASV-indexed hierarchical LCA taxonomy. '
+        'taxonomy': 'Final ASV-indexed hierarchical LCA taxonomy, weighted '
+                    'when priors are supplied, otherwise unweighted. '
                     'Compact labels appear only in assignment metadata.'},
     name='Assign references and consensus taxonomy from existing evidence.',
     description='Use exact integer identities to select exact-best references '
                 'and a strict lineage LCA without voting. Reference '
                 'multiplicity does not favor a taxon. Deterministic selection '
-                'is bookkeeping, not species identification. No VSEARCH, '
-                'ecological weighting, or feature-table aggregation is run.'
+                'is bookkeeping, not species identification. Optional priors '
+                'compare each exact-best taxon once; lower-identity and '
+                'near-best hits cannot participate. Preserve unweighted '
+                'metadata for comparison. No VSEARCH or feature-table '
+                'aggregation is run.'
 )
 
 plugin.methods.register_function(

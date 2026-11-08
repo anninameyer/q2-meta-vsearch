@@ -355,9 +355,14 @@ class AssignmentTests(TestPluginBase):
             self.plugin.methods['assign_closed_reference'](
                 alignments=blast6, reference_taxonomy=taxonomy)
 
-    def test_no_weighted_placeholder_columns(self):
+    def test_no_weights_have_equivalent_assignments_and_missing_metrics(self):
         result = self._assign()
-        columns = set(self._row(result))
-        self.assertFalse(columns & {
-            'selected_weight', 'reference_with_weights',
-            'weight_ratio', 'weight_resolved'})
+        row = self._row(result)
+        self.assertEqual(row['reference_with_weights'],
+                         row['reference_without_weights'])
+        self.assertEqual(row['taxonomy_with_weights'],
+                         row['taxonomy_without_weights'])
+        self.assertEqual(row['weight_assignment_status'], 'not_provided')
+        self.assertIsNone(row['selected_weight'])
+        self.assertIsNone(row['weight_ratio'])
+        self.assertEqual(row['weight_resolved'], 'false')

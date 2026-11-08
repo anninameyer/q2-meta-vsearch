@@ -3,7 +3,7 @@
 # Distributed under the terms of the Modified BSD License.
 # ----------------------------------------------------------------------------
 
-"""Unweighted assignment core, independent of QIIME 2 and executables."""
+"""Assignment core, independent of QIIME 2 and executables."""
 
 from contextlib import closing
 from dataclasses import dataclass
@@ -18,9 +18,12 @@ from ._alignment_evidence import (
     HIT_COLUMNS, QUERY_COLUMNS, identity_fraction, inventory_fingerprint,
     read_tsv, validate_hit, validate_manifest, validate_query)
 from ._taxonomy import consensus_taxonomy, parse_lineage
+from ._weighting import (
+    prepare_weights, validate_weight_parameters, weight_query, without_weights,
+    WEIGHT_COLUMNS, WEIGHT_NUMERIC_COLUMNS)
 
 
-SUMMARY_COLUMNS = (
+UNWEIGHTED_COLUMNS = (
     'matched', 'best_identity', 'best_identity_numerator',
     'best_identity_denominator', 'n_accepted_reference_hits',
     'n_best_reference_hits', 'n_best_alignments', 'n_near_best_reference_hits',
@@ -32,6 +35,7 @@ SUMMARY_COLUMNS = (
     'search_complete', 'identity_threshold', 'identity_tolerance',
     'reference_selection_policy', 'statistics_reference',
     'n_missing_taxonomy_reference_hits')
+SUMMARY_COLUMNS = UNWEIGHTED_COLUMNS + WEIGHT_COLUMNS
 NUMERIC_COLUMNS = {
     'best_identity', 'best_identity_numerator', 'best_identity_denominator',
     'n_accepted_reference_hits', 'n_best_reference_hits', 'n_best_alignments',
@@ -39,7 +43,8 @@ NUMERIC_COLUMNS = {
     'best_reference_coverage',
     'best_alignment_length', 'best_mismatches', 'best_gaps',
     'n_remaining_reference_hits', 'n_best_taxa', 'identity_threshold',
-    'identity_tolerance', 'n_missing_taxonomy_reference_hits'}
+    'identity_tolerance', 'n_missing_taxonomy_reference_hits'} | \
+    WEIGHT_NUMERIC_COLUMNS
 
 
 @dataclass
@@ -164,7 +169,10 @@ def assign_reference_alignments(evidence, reference_taxonomy,
                                 identity_threshold=0.90,
                                 identity_tolerance=0.0,
                                 unresolved_policy='deterministic-reference',
-                                max_explicit_species=2):
+                                max_explicit_species=2, class_weights=None,
+                                min_weight_difference=0.0,
+                                min_weight_ratio=1.0,
+                                missing_weight_policy='unresolved'):
     """Read schema-1 evidence and return summaries, taxonomy, and a mapping.
 
     Input identifiers are strings; absent taxonomy is reported, never replaced
@@ -175,6 +183,10 @@ def assign_reference_alignments(evidence, reference_taxonomy,
     manifest = json.loads((root / 'search.json').read_text(encoding='utf-8'))
     _parameters(manifest, identity_threshold, identity_tolerance,
                 unresolved_policy, max_explicit_species)
+    validate_weight_parameters(min_weight_difference, min_weight_ratio,
+                               missing_weight_policy)
+    weights = (None if class_weights is None else
+               prepare_weights(class_weights))
     if any(not isinstance(key, str) or not key for key in reference_taxonomy):
         raise ValueError('Reference taxonomy identifiers must be strings.')
     summary, taxonomies, mapping = [], {}, {}
@@ -232,6 +244,14 @@ def assign_reference_alignments(evidence, reference_taxonomy,
                     fetch_hits, reference_taxonomy, manifest,
                     identity_threshold, identity_tolerance, unresolved_policy,
                     max_explicit_species)
+                if weights is not None:
+                    taxon, reference = weight_query(
+                        fetch_hits, reference_taxonomy, row, weights,
+                        min_weight_difference, min_weight_ratio,
+                        missing_weight_policy, unresolved_policy,
+                        max_explicit_species)
+                else:
+                    without_weights(row)
                 row = {'id': query_id, **row}
                 summary.append(row)
                 taxonomies[query_id] = taxon

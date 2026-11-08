@@ -20,3 +20,9 @@ hit, an unmatched query, and the M2 rounded-identity collision.
 `lineages.json` specifies parser expectations. The no-hit BLAST6 fixture tests
 semantic input rejection. Duplicate taxonomy IDs intentionally form invalid
 input for the taxonomy reader.
+
+M5 adds `weights.tsv`, a set of synthetic taxon-weight vectors over these same
+reference taxonomy keys, and `weights-incompatible.tsv`, a deliberately
+incompatible phylum spelling for full-lineage mapping tests. They are software
+fixtures, not measured ecological priors. Lower-identity references can have the
+highest weight to test that sequence evidence always takes precedence.

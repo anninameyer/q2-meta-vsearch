@@ -1,0 +1,4 @@
+Taxon	default	equal	zeros	positive-zero	tiny	overflow	missing	margin
+d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum	.05	.125	0	0	1e-300	5e-324	.2	.2
+d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus paraplantarum	.2	.125	0	.25	2e-300	.1		.8
+d__Archaea; p__Euryarchaeota; c__Methanobacteria; o__Methanobacteriales; f__Methanobacteriaceae; g__Methanobrevibacter; s__Methanobrevibacter smithii	.75	.75	1	.75	1	.9	.8	0

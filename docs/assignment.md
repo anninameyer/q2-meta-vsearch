@@ -1,9 +1,10 @@
-# Unweighted assignment: M3 and M4
+# Reference assignment: M3–M5
 
 `assign-closed-reference` consumes existing alignment evidence and reference
-taxonomy. It returns ASV metadata and hierarchical ASV taxonomy. It accepts no
-feature table or ecological weights and never invokes VSEARCH. Enhanced OTU
-clustering and ecological reassignment workflows remain out of scope.
+taxonomy. It returns ASV metadata and hierarchical ASV taxonomy, optionally
+using one taxon-level ecological weight vector. It never invokes VSEARCH.
+Enhanced OTU clustering and the complete ecological reassignment workflow remain
+out of scope. See [ecological weighting](weighting.md) for M5 rules and examples.
 
 ## Action signature
 
@@ -15,7 +16,11 @@ assign_closed_reference(
     identity_tolerance: Float = 0.0,
     unresolved_policy: Choices['deterministic-reference', 'exclude']
         = 'deterministic-reference',
-    max_explicit_species: Int = 2
+    max_explicit_species: Int = 2,
+    class_weights: FeatureTable[RelativeFrequency] = None,
+    min_weight_difference: Float = 0.0,
+    min_weight_ratio: Float = 1.0,
+    missing_weight_policy: Choices['unresolved', 'error'] = 'unresolved'
 ) -> (
     assignment_metadata: FeatureData[SequenceCharacteristics],
     taxonomy: FeatureData[Taxonomy]
@@ -153,7 +158,7 @@ defined taxonomic subgroup**. These labels are diagnostic metadata only.
 Hierarchical `FeatureData[Taxonomy]` always contains the LCA, never `ssg.` or a
 species-alternative expression.
 
-## Complete metadata schema
+## Original unweighted metadata schema
 
 Every original ASV appears once. Categorical booleans use `true`/`false`, as
 QIIME 2 metadata supports categorical and numeric columns rather than boolean
@@ -261,16 +266,25 @@ provides the QIIME 2 adapter and serialization. The mapping is represented in
 the summary's reference column rather than a new mapping semantic type.
 
 Evidence is indexed in temporary disk-backed SQLite; query hits are streamed
-twice and not accumulated across ASVs. The taxonomy mapping and final ASV summary
-are held in memory. Assignment validates evidence but never realigns it.
+twice for unweighted resolution and once more when weights are supplied. Hits
+are not accumulated across ASVs. Weighting retains reference membership for the
+current query’s exact-best taxa. The taxonomy mapping, weight vector, and final
+ASV summary are held in memory. Assignment validates evidence but never realigns
+it.
 
 The same evidence can be passed to this action with another supported threshold,
 tolerance, policy, or taxonomy without modifying the evidence. A lower threshold
 than the stored floor is rejected. This is evidence reuse within the M3–M4 action;
-no ecological reassignment workflow or feature-table aggregation is implemented.
+no complete ecological reassignment workflow or feature-table aggregation is
+implemented. Alternative weight vectors may also be supplied to this existing
+action; it reads but never modifies or recomputes the alignment evidence.
 
-M5 should insert an optional taxon-level decision after exact-best candidate
-identification and before final consensus/reference materialization, reusing
-these same threshold, diagnostic, and taxonomy functions. A lower-identity hit
-must never become eligible. The schema has no placeholder weight columns; the
-requested weighted columns can be added when M5 is authorized.
+M5 adds an optional taxon-level decision after the unchanged exact-best and
+unweighted resolution, reusing the same taxonomy consensus. A lower-identity
+hit is never eligible. The original 30 columns retain their unweighted meanings;
+13 additional columns describe the final decision and weights. Without weights,
+these columns contain equivalent decisions and missing weight metrics. See the
+[complete weighted schema](weighting.md#weighted-metadata-schema). The primary
+taxonomy artifact and internal mapping use the final weighted decision when
+weights are present. Original `best_*` statistics always describe
+`statistics_reference`, even if weighting selects another reference.

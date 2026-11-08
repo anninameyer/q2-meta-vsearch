@@ -1,5 +1,18 @@
 # q2-meta-vsearch changelog
 
+## Unreleased — M5
+
+- Extend `assign-closed-reference` with an optional standard RelativeFrequency
+  single-vector input, without requiring q2-clawback.
+- Match complete taxonomy strings conservatively, detect weight-key collisions,
+  and report missing weights/taxonomy without zero imputation.
+- Compare one ecological weight per exact-best candidate taxon. Require a unique
+  top and both absolute and ratio margins; never promote near-best hits.
+- Retain all unweighted columns and add 13 final-decision/weight audit columns,
+  including equivalent assignments and missing metrics when no priors are given.
+- Add synthetic weighting tests, artifact round trips, worked examples, and
+  validation documentation. No enhanced OTU aggregation or new workflow actions.
+
 ## Unreleased — M3 and M4
 
 - Add unweighted `assign-closed-reference` using existing evidence and reference

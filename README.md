@@ -6,12 +6,13 @@ A standalone QIIME 2 plugin forked from
 is `qiime meta-vsearch`. It can be installed alongside the original plugin.
 
 The enhanced workflow is being developed incrementally as **ALIGN → ASSIGN →
-CLUSTER**. Ecological priors will resolve exact sequence ties only; they must
-never override stronger sequence evidence. Ecological weighting, enhanced OTU
-clustering, ecological reassignment, and the combined workflow are future work.
+CLUSTER**. Ecological priors resolve exact sequence ties only; they must never override
+stronger sequence evidence. Enhanced OTU clustering, the complete ecological
+reassignment workflow, and the combined workflow remain future work.
 
-M1–M4 are implemented: standalone plugin, reusable exhaustive alignment,
-ASV assignment metadata, and unweighted taxonomy-aware assignment.
+M1–M5 are implemented: standalone plugin, reusable exhaustive alignment,
+ASV assignment metadata, taxonomy-aware assignment, and optional ecological
+prior weighting without a runtime dependency on q2-clawback.
 
 ```bash
 qiime meta-vsearch align-closed-reference \
@@ -47,6 +48,13 @@ Exact-best references alone determine taxonomy. Default reference selection is
 lexicographic bookkeeping; ambiguity remains explicit. See the
 [assignment guide, complete metadata schema, and worked example](docs/assignment.md)
 and [M3–M4 validation report](docs/validation-m3-m4.md).
+
+Optionally add `--i-class-weights clawback-weights.qza` to assignment. Priors
+compare complete candidate taxa once each, regardless of reference multiplicity.
+Both weight margins must pass; missing weights retain ambiguity by default.
+Unweighted classifications remain in the metadata for comparison. See the
+[weighting guide and schema](docs/weighting.md) and
+[M5 validation report](docs/validation-m5.md).
 
 The conventional actions, including `cluster-features-closed-reference`, retain
 the original q2-vsearch algorithms. Their representative sequences are input
