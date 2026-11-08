@@ -1,0 +1,22 @@
+# Dedicated validation environment using patched 2026.10 release packages.
+# Target linux-64; not yet created/tested in this development session.
+name: q2-meta-vsearch-2026.10
+channels:
+  - https://packages.qiime2.org/qiime2/2026.10/qiime2/released
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.12
+  - qiime2=2026.10.0
+  - rachis=2026.10.1
+  - rachis-cli=2026.10.0
+  - q2-types=2026.10.0
+  - q2-feature-table=2026.10.0
+  - q2-vsearch=2026.10.0
+  - vsearch=2.30.4
+  - pip
+  - setuptools
+  - versioningit
+  - wheel
+  - pytest
+  - flake8

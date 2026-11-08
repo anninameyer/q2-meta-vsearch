@@ -1,19 +1,19 @@
 [project]
-name = "q2-vsearch"
+name = "q2-meta-vsearch"
 authors = [
     { name = "Greg Caporaso", email = "gregcaporaso@gmail.com" }
 ]
-description = "QIIME 2 plugin for vsearch."
+description = "QIIME 2 plugin for exhaustive reference alignment and conventional VSEARCH clustering."
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {file = "LICENSE"}
 dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://qiime2.org"
-Repository = "https://github.com/qiime2/q2-vsearch"
+Repository = "https://github.com/anninameyer/q2-meta-vsearch"
 
 [project.entry-points.'qiime2.plugins']
-"q2-vsearch" = "q2_vsearch.plugin_setup:plugin"
+"q2-meta-vsearch" = "q2_meta_vsearch.plugin_setup:plugin"
 
 [build-system]
 requires = [
@@ -37,14 +37,17 @@ dirty = "{base_version}+{distance}.{vcs}{rev}.dirty"
 distance-dirty = "{base_version}+{distance}.{vcs}{rev}.dirty"
 
 [tool.versioningit.write]
-file = "q2_vsearch/_version.py"
+file = "q2_meta_vsearch/_version.py"
 
 [tool.setuptools]
 include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["q2_vsearch*"]
+include = ["q2_meta_vsearch*"]
 
 [tool.setuptools.package-data]
-q2_vsearch = ["**/*"]
+q2_meta_vsearch = ["**/*"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["**/__pycache__/*", "**/*.pyc", "*.pyc"]

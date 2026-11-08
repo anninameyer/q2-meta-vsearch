@@ -104,8 +104,8 @@ Sorted alphabetically by repo name.
 - The q2-types plugin
   https://github.com/qiime2/q2-types/issues
 
-- The q2-vsearch plugin
-  https://github.com/qiime2/q2-vsearch/issues
+- The q2-meta-vsearch plugin
+  https://github.com/anninameyer/q2-meta-vsearch/issues
 
 - The CLI interface
   https://github.com/qiime2/q2cli/issues

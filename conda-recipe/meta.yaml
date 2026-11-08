@@ -1,5 +1,5 @@
 package:
-  name: q2-vsearch
+  name: q2-meta-vsearch
   version: {{ PLUGIN_VERSION }}
 source:
   path: ..
@@ -29,15 +29,16 @@ requirements:
   - versioningit
 test:
   commands:
-  - py.test --pyargs q2_vsearch
+  - py.test --pyargs q2_meta_vsearch
   requires:
   - qiime2 >={{ qiime2 }}
   - q2-types >={{ q2_types }}
   - q2-feature-table >={{ q2_feature_table }}
   - pytest
+  - q2-vsearch  # test-only: verify coexistence with the original plugin
   imports:
-  - q2_vsearch
-  - qiime2.plugins.vsearch
+  - q2_meta_vsearch
+  - qiime2.plugins.meta_vsearch
 about:
   home: https://qiime2.org
   license: BSD-3-Clause

@@ -12,7 +12,7 @@ test: all
 	py.test
 
 test-cov: all
-	py.test --cov=q2_vsearch
+	py.test --cov=q2_meta_vsearch
 
 install: all
 	$(PYTHON) -m pip install -v .

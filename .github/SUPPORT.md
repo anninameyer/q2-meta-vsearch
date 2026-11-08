@@ -82,8 +82,8 @@ Sorted alphabetically by repo name.
   | The q2-taxa plugin
 - [q2-types](https://github.com/qiime2/q2-types/issues)
   | The q2-types plugin
-- [q2-vsearch](https://github.com/qiime2/q2-vsearch/issues)
-  | The q2-vsearch plugin
+- [q2-meta-vsearch](https://github.com/anninameyer/q2-meta-vsearch/issues)
+  | The q2-meta-vsearch plugin
 - [q2cli](https://github.com/qiime2/q2cli/issues)
   | The CLI interface
 - [q2cwl](https://github.com/qiime2/q2cwl/issues)

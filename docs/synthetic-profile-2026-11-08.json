@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-08",
+  "environment": "QIIME 2 2024.10; Python 3.10.14; macOS; x86_64 VSEARCH; 1 thread",
+  "software_validation_only": true,
+  "cases": [
+    {
+      "synthetic_software_validation_only": true,
+      "case": "basic",
+      "search_mode": "exhaustive",
+      "queries": 2,
+      "references": 3,
+      "accepted_alignments": 3,
+      "vsearch_version": "vsearch v2.22.1_macos_x86_64, 16.0GB RAM, 8 cores",
+      "vsearch_elapsed_seconds": 0.09373491600854322,
+      "alignment_and_validation_seconds": 0.1839131669839844,
+      "child_process_peak_rss_bytes": 9269248,
+      "memory_scope": "fresh-process RUSAGE_CHILDREN high-water mark; not parent Python memory or a scaling benchmark",
+      "query_fingerprint": "b10f9e3599debf38b966df3ae3199cde4240e005dae82e881ed20b57d4355536",
+      "reference_fingerprint": "4b71325a699f5bd4363e093ab5eefc98db5ef508b68d5683525b3e9fe3811fe9"
+    },
+    {
+      "synthetic_software_validation_only": true,
+      "case": "precision",
+      "search_mode": "exhaustive",
+      "queries": 1,
+      "references": 2,
+      "accepted_alignments": 2,
+      "vsearch_version": "vsearch v2.22.1_macos_x86_64, 16.0GB RAM, 8 cores",
+      "vsearch_elapsed_seconds": 0.14997504197526723,
+      "alignment_and_validation_seconds": 0.17841279198182747,
+      "child_process_peak_rss_bytes": 80953344,
+      "memory_scope": "fresh-process RUSAGE_CHILDREN high-water mark; not parent Python memory or a scaling benchmark",
+      "query_fingerprint": "90cd99419b38d75a2eda9b29c458f5fbe239a1668f9266f3b5c54a8602f0bf4a",
+      "reference_fingerprint": "fc501fe7a8b806c12db3edc0a63bc21bda3138b4a5e85cedc1713fa2576a8ef6"
+    }
+  ]
+}
