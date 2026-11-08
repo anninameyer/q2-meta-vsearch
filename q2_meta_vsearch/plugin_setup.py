@@ -22,7 +22,9 @@ from q2_meta_vsearch._format import (
     MetaVsearchReferenceHitsFormat, MetaVsearchQueryInventoryFormat,
     MetaVsearchSearchManifestFormat, MetaVsearchReferenceAlignmentsDirFmt)
 from q2_meta_vsearch._align import align_closed_reference
-from q2_types.feature_data import FeatureData, Sequence, BLAST6
+from q2_meta_vsearch._assign import assign_closed_reference
+from q2_types.feature_data import (
+    FeatureData, Sequence, BLAST6, SequenceCharacteristics, Taxonomy)
 from q2_types.feature_table import FeatureTable, Frequency
 from q2_types.sample_data import SampleData
 from q2_types.per_sample_sequences import (
@@ -100,6 +102,55 @@ plugin.methods.register_function(
                 'and future sensitivity analysis; they must never become '
                 'eligible to override exact-best sequence matches via priors.',
     citations=[citations['rognes2016vsearch']]
+)
+
+plugin.methods.register_function(
+    function=assign_closed_reference,
+    inputs={'alignments': FeatureData[ReferenceAlignments],
+            'reference_taxonomy': FeatureData[Taxonomy]},
+    parameters={
+        'identity_threshold': qiime2.plugin.Float % qiime2.plugin.Range(
+            0, 1, inclusive_start=False, inclusive_end=True),
+        'identity_tolerance': qiime2.plugin.Float % qiime2.plugin.Range(
+            0, 100, inclusive_end=True),
+        'unresolved_policy': qiime2.plugin.Str % qiime2.plugin.Choices(
+            ['deterministic-reference', 'exclude']),
+        'max_explicit_species': qiime2.plugin.Int % qiime2.plugin.Range(
+            1, None)},
+    outputs=[('assignment_metadata', FeatureData[SequenceCharacteristics]),
+             ('taxonomy', FeatureData[Taxonomy])],
+    input_descriptions={
+        'alignments': 'Validated reusable alignment evidence, not BLAST6.',
+        'reference_taxonomy': 'Reference-ID taxonomy. Missing best-hit '
+                              'annotations are explicitly reported.'},
+    parameter_descriptions={
+        'identity_threshold': 'Minimum identity fraction (0–1), at least the '
+                              'stored alignment floor. Default 0.90.',
+        'identity_tolerance': 'Diagnostic tolerance in percentage points '
+                              '(default 0): 0.2 includes extra references '
+                              'within 0.2 percentage points of best identity, '
+                              'subject to the threshold. Near-best references '
+                              'never influence assignment or future priors.',
+        'unresolved_policy': 'Select the lexicographically first exact-best '
+                             'reference by default, retaining taxonomic '
+                             'ambiguity. Exclude leaves reference selection '
+                             'blank for disagreeing or missing taxonomy.',
+        'max_explicit_species': 'List up to this many distinct species within '
+                                'one genus; otherwise use a human-readable '
+                                'ssg. label. Hierarchical taxonomy is LCA.'},
+    output_descriptions={
+        'assignment_metadata': 'One metadata-compatible row per original ASV. '
+                               'Statistics use statistics_reference (the '
+                               'lexicographically first exact-best reference; '
+                               'plus strand first), even under exclusion.',
+        'taxonomy': 'ASV-indexed hierarchical LCA taxonomy. '
+                    'Compact labels appear only in assignment metadata.'},
+    name='Assign references and consensus taxonomy from existing evidence.',
+    description='Use exact integer identities to select exact-best references '
+                'and a strict lineage LCA without voting. Reference '
+                'multiplicity does not favor a taxon. Deterministic selection '
+                'is bookkeeping, not species identification. No VSEARCH, '
+                'ecological weighting, or feature-table aggregation is run.'
 )
 
 plugin.methods.register_function(

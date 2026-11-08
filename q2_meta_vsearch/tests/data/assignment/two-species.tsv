@@ -1,0 +1,5 @@
+Feature ID	Taxon
+ref-a	d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum
+ref-b	d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum
+ref-c	d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus paraplantarum
+ref-lower	d__Archaea; p__Euryarchaeota; c__Methanobacteria; o__Methanobacteriales; f__Methanobacteriaceae; g__Methanobrevibacter; s__Methanobrevibacter smithii

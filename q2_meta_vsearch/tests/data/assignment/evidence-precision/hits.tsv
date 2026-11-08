@@ -1,0 +1,3 @@
+query_id	reference_id	strand	matches	alignment_length	mismatches	gap_bases	gap_opens	gap_extensions	query_length	reference_length	query_start	query_end	reference_start	reference_end	raw_score	cigar	identity	query_coverage	reference_coverage	is_exact_best
+precision	better	+	2998	3000	2	0	0	0	3000	3000	1	3000	1	3000	5988	3000M	0.9993333333333333	1	1	1
+precision	worse	+	2997	3000	3	0	0	0	3000	3000	1	3000	1	3000	5982	3000M	0.999	1	1	0

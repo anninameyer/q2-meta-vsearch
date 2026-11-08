@@ -1,8 +1,8 @@
 # M1–M2 validation
 
-Recorded on 2026-11-08. Only M1 (standalone plugin) and M2 (alignment evidence)
-are implemented. No taxonomy, weighting, reassignment, or enhanced count
-clustering actions have been added.
+Historical M1–M2 validation, recorded on 2026-11-08. The milestone state described
+here predates the subsequent [M3–M4 implementation](validation-m3-m4.md).
+Weighting, ecological reassignment, and enhanced count clustering remain unimplemented.
 
 ## Results actually executed
 

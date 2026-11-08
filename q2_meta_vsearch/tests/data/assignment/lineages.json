@@ -1,0 +1,62 @@
+[
+  {
+    "input": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum"
+  },
+  {
+    "input": "k__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum"
+  },
+  {
+    "input": "Bacteria; Bacillota; Bacilli; Lactobacillales; Lactobacillaceae; Lactiplantibacillus; Lactiplantibacillus plantarum",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum"
+  },
+  {
+    "input": "D_0__Bacteria; D_1__Bacillota; D_2__Bacilli; D_3__Lactobacillales; D_4__Lactobacillaceae; D_5__Lactiplantibacillus; D_6__Lactiplantibacillus plantarum",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum"
+  },
+  {
+    "input": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__plantarum",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum"
+  },
+  {
+    "input": "Lactiplantibacillus plantarum",
+    "expected": "Unassigned"
+  },
+  {
+    "input": "d__Bacteria; g__Lactiplantibacillus; s__Lactiplantibacillus plantarum",
+    "expected": "d__Bacteria"
+  },
+  {
+    "input": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__uncultured bacterium",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus"
+  },
+  {
+    "input": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus sp000123",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus"
+  },
+  {
+    "input": "Unassigned",
+    "expected": "Unassigned"
+  },
+  {
+    "input": "k__Fungi",
+    "expected": "k__Fungi"
+  },
+  {
+    "input": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus unknown",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus"
+  },
+  {
+    "input": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus uncultured",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus"
+  },
+  {
+    "input": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus; s__Lactiplantibacillus unclassified",
+    "expected": "d__Bacteria; p__Bacillota; c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactiplantibacillus"
+  },
+  {
+    "input": "k__Fungi; p__Ascomycota; c__Saccharomycetes; o__Saccharomycetales; f__Saccharomycetaceae; g__Saccharomyces; s__Saccharomyces cerevisiae",
+    "expected": "k__Fungi; p__Ascomycota; c__Saccharomycetes; o__Saccharomycetales; f__Saccharomycetaceae; g__Saccharomyces; s__Saccharomyces cerevisiae"
+  }
+]

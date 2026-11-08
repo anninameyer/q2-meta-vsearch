@@ -1,5 +1,20 @@
 # q2-meta-vsearch changelog
 
+## Unreleased — M3 and M4
+
+- Add unweighted `assign-closed-reference` using existing evidence and reference
+  taxonomy, without VSEARCH execution or a frequency-table input.
+- Report one metadata-compatible summary per original ASV, exact identity
+  counts, reference/taxonomic ambiguity, LCA, diagnostics, and deterministic
+  reference selection or exclusion.
+- Add conservative taxonomy parsing and separate species-alternative/ssg.
+  labels. Near-best tolerance is diagnostic only.
+- Preserve numeric-looking identifiers through canonical artifact metadata views
+  using additive directory-format transformers for existing semantic types.
+- Add synthetic evidence, assignment invariants, metadata round-trip tests,
+  worked examples, and documentation. No ecological weighting or enhanced OTU
+  aggregation has been added.
+
 ## Unreleased — M1 and M2
 
 - Namespace the standalone distribution, Python package, plugin, and chimera

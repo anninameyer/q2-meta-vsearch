@@ -1,0 +1,5 @@
+query_id	reference_id	strand	matches	alignment_length	mismatches	gap_bases	gap_opens	gap_extensions	query_length	reference_length	query_start	query_end	reference_start	reference_end	raw_score	cigar	identity	query_coverage	reference_coverage	is_exact_best
+00045	0001	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+00045	0002	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+00123	0001	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+00123	0002	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1

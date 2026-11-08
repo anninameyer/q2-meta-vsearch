@@ -2,7 +2,8 @@
 
 `align-closed-reference` is the enhanced functionality currently implemented.
 It accepts ASV sequences and references, without a feature table, taxonomy, or
-weights. Assignment and enhanced clustering are not implemented in M1–M2.
+weights. The [unweighted assignment action](assignment.md) now consumes this
+evidence in M3–M4. Enhanced clustering is not implemented.
 
 ```text
 align_closed_reference(
@@ -158,8 +159,8 @@ artifact when every query is unmatched. The evidence artifact is authoritative.
 ## Constraints for later milestones
 
 - Priors may resolve **exact-best** sequence ties only.
-- Current identity tolerance is zero. A future nonzero tolerance may label
-  near-best matches for reporting, without making them weight-eligible.
+- Alignment exact-best tolerance is zero. The assignment action now supports
+  a separate diagnostic tolerance, without making near-best hits weight-eligible.
 - A complete 90% run can be filtered to higher identity thresholds without
   rerunning VSEARCH. Reuse below the recorded floor is invalid.
 - Changing references, strands, scoring, or identity definition requires new

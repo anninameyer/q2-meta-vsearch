@@ -1,0 +1,16 @@
+query_id	reference_id	strand	matches	alignment_length	mismatches	gap_bases	gap_opens	gap_extensions	query_length	reference_length	query_start	query_end	reference_start	reference_end	raw_score	cigar	identity	query_coverage	reference_coverage	is_exact_best
+00123	ref-a	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+00123	ref-c	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+00123	ref-lower	+	198	200	2	0	0	0	200	200	1	200	1	200	388	200M	0.98999999999999999	1	1	0
+1e3	ref-a	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+1e3	ref-c	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+1e3	ref-lower	+	198	200	2	0	0	0	200	200	1	200	1	200	388	200M	0.98999999999999999	1	1	0
+NA	ref-a	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+NA	ref-c	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+NA	ref-lower	+	198	200	2	0	0	0	200	200	1	200	1	200	388	200M	0.98999999999999999	1	1	0
+asv;size=7;odd	ref-a	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+asv;size=7;odd	ref-c	+	200	200	0	0	0	0	200	200	1	200	1	200	400	200M	1	1	1	1
+asv;size=7;odd	ref-lower	+	198	200	2	0	0	0	200	200	1	200	1	200	388	200M	0.98999999999999999	1	1	0
+boundary	ref-a	+	199	200	1	0	0	0	200	200	1	200	1	200	394	200M	0.995	1	1	1
+boundary	ref-c	+	199	200	1	0	0	0	200	200	1	200	1	200	394	200M	0.995	1	1	1
+boundary	ref-lower	+	197	200	3	0	0	0	200	200	1	200	1	200	382	200M	0.98499999999999999	1	1	0

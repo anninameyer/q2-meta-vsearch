@@ -1,0 +1,4 @@
+Feature ID	Taxon
+ref-a	k__Fungi; p__Ascomycota; c__Saccharomycetes; o__Saccharomycetales; f__Saccharomycetaceae; g__Saccharomyces; s__Saccharomyces cerevisiae
+ref-b	k__Fungi; p__Ascomycota; c__Saccharomycetes; o__Saccharomycetales; f__Saccharomycetaceae; g__Saccharomyces; s__Saccharomyces cerevisiae
+ref-c	k__Fungi; p__Basidiomycota; c__Saccharomycetes; o__Saccharomycetales; f__Saccharomycetaceae; g__Saccharomyces; s__Saccharomyces cerevisiae
